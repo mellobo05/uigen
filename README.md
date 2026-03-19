@@ -1,6 +1,26 @@
 # UIGen
 
-AI-powered React component generator with live preview.
+AI-powered React component generator with live preview. Describe a component in plain English and watch it appear instantly.
+
+![UIGen Preview](ui_gen_failed_2.png)
+
+## Features
+
+- AI-powered component generation using Claude
+- Live preview with hot reload
+- Virtual file system (no files written to disk)
+- Syntax highlighting and code editor
+- Component persistence for registered users
+- Works without an API key (mock mode generates demo components)
+
+## Tech Stack
+
+- Next.js 15 with App Router
+- React 19 + TypeScript
+- Tailwind CSS v4
+- Prisma + SQLite
+- Anthropic Claude AI (claude-haiku-4-5)
+- Vercel AI SDK
 
 ## Prerequisites
 
@@ -9,29 +29,25 @@ AI-powered React component generator with live preview.
 
 ## Setup
 
-1. **Optional** Edit `.env` and add your Anthropic API key:
-
-```
-ANTHROPIC_API_KEY=your-api-key-here
-```
-
-The project will run without an API key. Rather than using a LLM to generate components, static code will be returned instead.
-
-2. Install dependencies and initialize database
+### 1. Install dependencies and initialize the database
 
 ```bash
 npm run setup
 ```
 
-This command will:
+This installs all packages, generates the Prisma client, and runs database migrations.
 
-- Install all dependencies
-- Generate Prisma client
-- Run database migrations
+### 2. (Optional) Add an Anthropic API key
 
-## Running the Application
+Create a `.env` file in the project root:
 
-### Development
+```env
+ANTHROPIC_API_KEY=your-api-key-here
+```
+
+> Without an API key the app runs in **mock mode** — it generates a few demo components (card, form, counter) without calling the Anthropic API. To use real AI generation, add a key with available credits from [console.anthropic.com](https://console.anthropic.com).
+
+## Running the App
 
 ```bash
 npm run dev
@@ -41,27 +57,20 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## Usage
 
-1. Sign up or continue as anonymous user
-2. Describe the React component you want to create in the chat
-3. View generated components in real-time preview
-4. Switch to Code view to see and edit the generated files
-5. Continue iterating with the AI to refine your components
+1. **Anonymous** — use the app right away without signing up
+2. **Describe** a React component in the chat (e.g. *"Create a card with a title and description"*)
+3. **Preview** the generated component live on the right panel
+4. **Switch to Code view** to inspect and copy the generated files
+5. **Sign up** to save your components and pick up where you left off
 
-## Features
+## Database
 
-- AI-powered component generation using Claude
-- Live preview with hot reload
-- Virtual file system (no files written to disk)
-- Syntax highlighting and code editor
-- Component persistence for registered users
-- Export generated code
+The app uses SQLite via Prisma. To reset the database:
 
-## Tech Stack
+```bash
+npm run db:reset
+```
 
-- Next.js 15 with App Router
-- React 19
-- TypeScript
-- Tailwind CSS v4
-- Prisma with SQLite
-- Anthropic Claude AI
-- Vercel AI SDK
+## Contributing
+
+Pull requests are welcome. For major changes please open an issue first.
